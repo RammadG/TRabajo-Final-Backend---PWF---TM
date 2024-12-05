@@ -5,11 +5,11 @@ class UserRepository {
 
     static async createUser(userData) {
 
-        const { email, number } = userData
+        const { email, number, name } = userData
 
         const passwordHashed = await bcrypt.hash(userData.password, 10)
 
-        const result = await pool.execute('INSERT INTO Users( number, email, password ) VALUES( ?, ?, ? )', [number, email, passwordHashed])
+        const result = await pool.execute('INSERT INTO Users(name, number, email, password ) VALUES( ?, ?, ?, ? )', [name, number, email, passwordHashed])
 
         return result
 

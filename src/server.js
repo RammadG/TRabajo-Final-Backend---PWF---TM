@@ -49,3 +49,10 @@ app.listen(PORT, () => {
 }) */
 
 /*     console.log(await MessageRepository.getMessages(1,3)) */
+
+/* UserRepository.createUser({
+    number: '3815680944',
+    email: 'ramadegregori@gmail.com',
+    password: 'Programadorweb0507',
+    name: 'Ramma'
+}) */
