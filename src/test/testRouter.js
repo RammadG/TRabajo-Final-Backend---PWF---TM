@@ -1,6 +1,6 @@
 import express from "express";
-import { getTestController } from "../controllers/pingTestController.js";
-import { PostTestController } from "../controllers/pingTestController.js";
+import { getTestController } from "./pingTestController.js";
+import { PostTestController } from "./pingTestController.js";
 
 const testRouter = express.Router()
 
