@@ -6,15 +6,19 @@ const pool = mysql.createPool(
         host: ENVIROMENT.MYSQL.HOST,
         password: ENVIROMENT.MYSQL.PASSWORD,
         user: ENVIROMENT.MYSQL.USERNAME,
-        database: ENVIROMENT.MYSQL.DATABASE
+        database: 'bqldrfsuq0rear1rndtr'
     }
 )
 
-pool.getConnection().then((result) => {
-    console.log('Conexión a mysql exitosa.')
-})
-.catch(() => {
-    console.log('Error de conexión a mysql')
+pool.getConnection()
+    .then(async (connection) => {
+        
+        await connection.query(`USE bqldrfsuq0rear1rndtr`)
+        console.log('Conexión con MySQL exitosa y base de datos seleccionada')
+        connection.release()
+    })
+    .catch((err) => {
+        console.error('Error en la conexión: ',err)
 })
 
 export default pool

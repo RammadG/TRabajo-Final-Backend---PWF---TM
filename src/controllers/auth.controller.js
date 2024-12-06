@@ -15,7 +15,8 @@ export const registerController = async (req, res, next) => {
         const validations = {
             email: [validateEmail],
             password: [validateLength],
-            number: [validateLength]
+            number: [validateLength],
+            name: [validateLength]
         }
 
         let errores = ''
@@ -36,7 +37,7 @@ export const registerController = async (req, res, next) => {
             const response = new ResponseBuilder()
                 .setCode('VALUES_VALIDATION_ERROR')
                 .setMessage('Error de validación de datos')
-                .setOk('false')
+                .setOk(false)
                 .setStatus(400)
                 .setData({
                     errors: errores
@@ -80,28 +81,19 @@ export const loginController = async (req, res, next) => {
     try {
         const { username, password } = req.body
 
-        console.log(req.body)
-
-        const userGotten = await UserRepository.getUser({
-            username: username
-        })
-
-        console.log(userGotten)
-
+        const userGotten = await UserRepository.getUser(username)
         if (!userGotten) {
             return res.json({
                 error: 'Usuario no encontrado.'
             })
-            
         }
-
         const validatePassword = await bcrypt.compare(password, userGotten.password)
 
         if (!validatePassword) {
             return res.json({
                 error: 'La contraseña es incorrecta'
             })
-            
+
         }
 
         const accessToken = jwt.sign({
@@ -121,7 +113,14 @@ export const loginController = async (req, res, next) => {
             .setStatus(200)
             .setData(
                 {
-                    accessToken: accessToken
+                    accessToken: accessToken,
+                    author_id: userGotten.id,
+                    user: {
+                        name: userGotten.name,
+                        email: userGotten.email,
+                        description: userGotten.description,
+                        number: userGotten.number
+                    }
                 }
             )
             .build()
@@ -131,9 +130,4 @@ export const loginController = async (req, res, next) => {
     catch (err) {
         console.log(err)
     }
-
-
-
-
-
 }

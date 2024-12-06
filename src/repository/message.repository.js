@@ -13,7 +13,11 @@ class MessageRepository {
     
     static async getMessages(author_id, receiver_id){
 
-        const result = await pool.execute('SELECT * FROM Messages WHERE author_id = ? AND receiver_id = ? OR author_id = ? AND receiver_id = ?', [author_id, receiver_id, receiver_id, author_id])
+        const query = `SELECT content, author_id, receiver_id, name, Messages.created_at FROM Messages 
+        INNER JOIN Users ON Messages.receiver_id = Users.id
+        WHERE author_id = ? AND receiver_id = ? OR author_id = ? AND receiver_id = ? `
+
+        const result = await pool.execute(query, [author_id, receiver_id, receiver_id, author_id])
 
         return result[0]
     }

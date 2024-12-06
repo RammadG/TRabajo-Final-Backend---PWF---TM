@@ -20,4 +20,10 @@ export const validateLength = (fieldName, fieldValue) => {
 
         return error
     }
+
+    if(fieldName === 'name'){
+        const error = fieldValue.length < 4 ? '\n -El name debe tener 4 caracteres o más' : null
+
+        return error
+    }
 }

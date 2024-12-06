@@ -6,9 +6,6 @@ export const getAllContacts = async (req, res, next) => {
     try{
 
         const contactos = await UserRepository.getContacts(req.userId)
-
-        console.log(contactos)
-
         const response = new ResponseBuilder()
         .setCode('CONTACTS_DELIVERED_SUCCESS')
         .setMessage('Contactos recibidos con éxito.')
@@ -19,7 +16,7 @@ export const getAllContacts = async (req, res, next) => {
         })
         .build()
 
-        res.json(response)
+        return res.json(response)
 
     }
     catch(err){
@@ -28,3 +25,96 @@ export const getAllContacts = async (req, res, next) => {
 
 
 }
+
+export const addContactController = async (req, res, next) => {
+    try{
+
+        const { username } = req.body
+
+        const userGotten = await UserRepository.getUser(username)
+
+        if(!userGotten){
+            return res.json({
+                error: 'No se encontró el usuario que quiere agregar'
+            })
+            
+        }
+
+        if(userGotten.id == req.userId){
+            return res.json({
+                error: 'No puedes agregarte a ti mismo como contacto'
+            })
+        }
+
+        await UserRepository.addContact(req.userId, userGotten.id)
+
+        const response = new ResponseBuilder()
+        .setCode('CONTACT_ADD_SUCCESS')
+        .setMessage('Contacto agregado con éxito.')
+        .setOk(true)
+        .setStatus(200)
+        .setData({
+            contactoAgregado: userGotten
+        })
+        .build()
+
+        return res.json(response)
+
+    }
+    catch(err){
+        if(err.sqlState == 23000){
+            res.json({
+                error: 'El usuario que intenta agregar está en sus contactos'
+            })
+        }
+        console.log(err)
+    }
+
+
+}
+
+export const getContactByIdController = async (req, res, next) => {
+    try{
+
+    const { userId } = req.params
+
+    const userGotten = await UserRepository.getUserById(userId)
+    console.log(userGotten)
+
+    const response = new ResponseBuilder()
+    .setCode('USER_GOT_SUCCESS')
+    .setMessage('Usuario obtenido con éxito.')
+    .setOk(true)
+    .setStatus(200)
+    .setData({
+        user: userGotten
+    })
+    .build()
+
+    return res.json(response)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+export const deleteContactByIdController = async (req, res, next) => {
+    try{
+
+        const { contactId } = req.params
+
+        await UserRepository.deleteContact(req.userId, contactId)
+
+        const response = new ResponseBuilder()
+        .setCode('USER_DELETED_SUCCESS')
+        .setMessage('Usuario borrado con éxito.')
+        .setOk(true)
+        .setStatus(200)
+        .build()
+
+        return res.json(response)
+    }
+    catch(err){
+
+    }
+} 

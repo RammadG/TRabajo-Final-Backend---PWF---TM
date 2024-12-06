@@ -15,9 +15,7 @@ class UserRepository {
 
     }
 
-    static async getUser(userData){
-
-        const { username, password } = userData
+    static async getUser(username){
 
         const result = await pool.execute('SELECT * FROM Users WHERE email = ? OR number = ?', [username, username])
 
@@ -41,10 +39,18 @@ class UserRepository {
 
     static async getContacts(user_id) {
 
-        const result = await pool.execute(
+        let result = await pool.execute(
             `SELECT * FROM Users INNER JOIN Contacts ON Users.id = Contacts.contact_id WHERE Contacts.user_id = ?`, [user_id])
 
         return result[0]
+
+    }
+
+    static async getUserById(user_id) {
+
+        let result = await pool.execute('SELECT name, number, email, description FROM Users WHERE Users.id = ?', [user_id])
+
+        return result[0][0]
 
     }
 

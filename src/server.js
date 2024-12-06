@@ -27,14 +27,9 @@ app.listen(PORT, () => {
     console.log('El servidor está funcionando en el puerto http://localhost:' + PORT)
 })
 
-/* UserRepository.createUser({
-    number: '2215837384',
-    email: 'rammaramma@gmail.com',
-    password: 'ramma123'
-}) */
 
-/*     UserRepository.addContact(3,1)
- */
+/*     UserRepository.addContact(1,2) */
+
 
 
 /* UserRepository.deleteContact(3,1) */
@@ -43,16 +38,11 @@ app.listen(PORT, () => {
 /* const { content, author_id, receiver_id } = data */
 
 /* MessageRepository.addMessage({
-    content: 'dale, arreglamos para mas tarde',
-    author_id: 3,
-    receiver_id: 1
+    content: 'una maravilla!',
+    author_id: 1,
+    receiver_id: 3
 }) */
 
 /*     console.log(await MessageRepository.getMessages(1,3)) */
 
-/* UserRepository.createUser({
-    number: '3815680944',
-    email: 'ramadegregori@gmail.com',
-    password: 'Programadorweb0507',
-    name: 'Ramma'
-}) */
+/* console.log(await UserRepository.getContacts(5)) */
