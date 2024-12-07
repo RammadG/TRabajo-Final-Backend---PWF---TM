@@ -46,3 +46,12 @@ app.listen(PORT, () => {
 /*     console.log(await MessageRepository.getMessages(1,3)) */
 
 /* console.log(await UserRepository.getContacts(5)) */
+
+/* const NewUser = {
+    name: 'Big Raf',
+    number: '0123459876',
+    email: 'RafaGRANDE@test.com',
+    password: 'password123'
+}
+
+UserRepository.createUser(NewUser) */
