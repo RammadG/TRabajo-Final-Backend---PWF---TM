@@ -3,10 +3,10 @@ import ENVIROMENT from './enviroment.js'
 
 const pool = mysql.createPool(
     {
-        host: ENVIROMENT.MYSQL.HOST,
+        host: 'bxe3g15z2vfhgtvewwoa-mysql.services.clever-cloud.com',
         password: ENVIROMENT.MYSQL.PASSWORD,
         user: ENVIROMENT.MYSQL.USERNAME,
-        database: 'bxe3g15z2vfhgtvewwoa'
+        database: ENVIROMENT.MYSQL.DATABASE
     }
 )
 
