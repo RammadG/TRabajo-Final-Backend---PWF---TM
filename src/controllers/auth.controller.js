@@ -128,6 +128,7 @@ export const loginController = async (req, res, next) => {
         return res.json(response)
     }
     catch (err) {
-        console.log(err)
-    }
-}
+        return res.json({
+            error: err.message
+        })
+}}
