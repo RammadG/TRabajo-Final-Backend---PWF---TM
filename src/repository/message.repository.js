@@ -13,8 +13,7 @@ class MessageRepository {
     
     static async getMessages(author_id, receiver_id){
 
-        const query = `SELECT content, author_id, receiver_id, name, Messages.created_at FROM Messages 
-        INNER JOIN Users ON Messages.receiver_id = Users.id
+        const query = `SELECT * FROM Messages 
         WHERE author_id = ? AND receiver_id = ? OR author_id = ? AND receiver_id = ?
         ORDER BY created_at ASC`
 

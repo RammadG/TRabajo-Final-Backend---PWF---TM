@@ -10,14 +10,7 @@ export const getMessagesController = async (req, res, next) => {
 
         const mensajes = await MessageRepository.getMessages(req.userId, receiver_id)
 
-        const nombreContacto = mensajes.find((mensaje) => mensaje.receiver_id == receiver_id).name // para tomar el nombre del contacto que recibe los mensajes
-
-        const mensajesFormateados = mensajes.forEach((mensaje, index) => {
-            let hora = mensaje.created_at.getHours().toString().padStart(2, '0')
-            let minutos = mensaje.created_at.getMinutes().toString().padStart(2, '0')
-
-            mensajes[index].created_at = `${hora}:${minutos}` 
-        })
+        const contacto = await UserRepository.getUserById(receiver_id)// para tomar el nombre del contacto que recibe los mensajes
 
         const response = new ResponseBuilder()
             .setCode('MESSAGES_DELIVERED_SUCCESS')
@@ -26,7 +19,7 @@ export const getMessagesController = async (req, res, next) => {
             .setStatus(200)
             .setData({
                 mensajes: mensajes,
-                nombreContacto: nombreContacto
+                nombreContacto: contacto.name
             })
             .build()
 
