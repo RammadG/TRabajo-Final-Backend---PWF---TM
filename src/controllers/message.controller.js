@@ -1,5 +1,6 @@
 import ResponseBuilder from "../helpers/ResponseBuilder.js"
 import MessageRepository from "../repository/message.repository.js"
+import UserRepository from "../repository/user.repository.js"
 
 
 
@@ -8,7 +9,9 @@ export const getMessagesController = async (req, res, next) => {
 
         const { receiver_id } = req.params
 
-        const mensajes = await MessageRepository.getMessages(req.userId, receiver_id)
+        const author_id = req.userId
+
+        const mensajes = await MessageRepository.getMessages(author_id, receiver_id)
 
         const contacto = await UserRepository.getUserById(receiver_id)// para tomar el nombre del contacto que recibe los mensajes
 
@@ -23,7 +26,7 @@ export const getMessagesController = async (req, res, next) => {
             })
             .build()
 
-        res.json(response)
+        return res.json(response)
 
     } catch (err) {
         console.log(err)
