@@ -22,7 +22,6 @@ app.use('/api/contact', contactRouter)
 app.use('/api/message', messageRouter)
 
 
-
 app.listen(PORT, () => {
     console.log('El servidor está funcionando en el puerto http://localhost:' + PORT)
 })
@@ -48,10 +47,12 @@ app.listen(PORT, () => {
 /* console.log(await UserRepository.getContacts(5)) */
 
 /* const NewUser = {
-    name: 'Big Raf',
-    number: '0123459876',
-    email: 'RafaGRANDE@test.com',
-    password: 'password123'
+    name: 'guest',
+    number: '2213989494',
+    email: 'guest@test.com',
+    password: 'guest123'
 }
 
 UserRepository.createUser(NewUser) */
+
+/* console.log(await UserRepository.getAllUsers()) */

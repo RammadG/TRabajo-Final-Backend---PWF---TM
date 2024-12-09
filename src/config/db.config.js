@@ -13,7 +13,7 @@ const pool = mysql.createPool(
 pool.getConnection()
     .then(async (connection) => {
         
-        await connection.query(`USE bqldrfsuq0rear1rndtr`)
+        await connection.query(`USE bxe3g15z2vfhgtvewwoa`)
         console.log('Conexión con MySQL exitosa y base de datos seleccionada')
         connection.release()
     })

@@ -15,7 +15,8 @@ class MessageRepository {
 
         const query = `SELECT content, author_id, receiver_id, name, Messages.created_at FROM Messages 
         INNER JOIN Users ON Messages.receiver_id = Users.id
-        WHERE author_id = ? AND receiver_id = ? OR author_id = ? AND receiver_id = ? `
+        WHERE author_id = 1 AND receiver_id = 3 OR author_id = 3 AND receiver_id = 1 
+        ORDER BY created_at ASC`
 
         const result = await pool.execute(query, [author_id, receiver_id, receiver_id, author_id])
 

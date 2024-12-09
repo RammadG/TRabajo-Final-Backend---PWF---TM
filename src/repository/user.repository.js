@@ -54,6 +54,13 @@ class UserRepository {
 
     }
 
+    static async getAllUsers(userId){
+        let result = await pool.execute('SELECT number, email, name FROM Users WHERE id != ?', [userId])
+
+        return result[0]
+
+    }
+
 }
 
 export default UserRepository

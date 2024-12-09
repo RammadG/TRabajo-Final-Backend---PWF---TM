@@ -79,7 +79,6 @@ export const getContactByIdController = async (req, res, next) => {
     const { userId } = req.params
 
     const userGotten = await UserRepository.getUserById(userId)
-    console.log(userGotten)
 
     const response = new ResponseBuilder()
     .setCode('USER_GOT_SUCCESS')
@@ -117,4 +116,30 @@ export const deleteContactByIdController = async (req, res, next) => {
     catch(err){
 
     }
-} 
+}
+
+export const getAllUsersController = async (req, res, next) => {
+    try{
+
+
+        const usuarios = await UserRepository.getAllUsers(req.userId)
+
+        const response = new ResponseBuilder()
+        .setCode('USERS_RECEIVED_SUCCESS')
+        .setMessage('Usuarios recibidos con éxito.')
+        .setOk(true)
+        .setStatus(200)
+        .setData({
+            usuarios: usuarios
+        })
+        .build()
+
+        return res.json(response)
+    }
+    catch(err){
+        return res.json({
+            error: err.message
+        }
+        )
+    }
+}
