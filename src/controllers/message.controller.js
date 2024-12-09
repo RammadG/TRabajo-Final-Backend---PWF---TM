@@ -13,6 +13,13 @@ export const getMessagesController = async (req, res, next) => {
 
         const mensajes = await MessageRepository.getMessages(author_id, receiver_id)
 
+        const mensajesFormateados = mensajes.forEach((mensaje, index) => {
+            let hora = mensaje.created_at.getHours().toString().padStart(2, '0')
+            let minutos = mensaje.created_at.getMinutes().toString().padStart(2, '0')
+
+            mensajes[index].created_at = `${hora}:${minutos}`
+        })
+
         const contacto = await UserRepository.getUserById(receiver_id)// para tomar el nombre del contacto que recibe los mensajes
 
         const response = new ResponseBuilder()
@@ -21,7 +28,7 @@ export const getMessagesController = async (req, res, next) => {
             .setOk(true)
             .setStatus(200)
             .setData({
-                mensajes: mensajes,
+                mensajes: mensajesFormateados,
                 nombreContacto: contacto.name
             })
             .build()
