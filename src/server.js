@@ -12,7 +12,7 @@ import messageRouter from './routes/messageRouter.js'
 const app = express()
 const PORT = 8000
 
-app.use(cors())
+app.use(cors({origin : 'https://pwi-trabajo-final-front-end-desplegado.vercel.app'})) 
 
 app.use(express.json())
 
@@ -25,34 +25,3 @@ app.use('/api/message', messageRouter)
 app.listen(PORT, () => {
     console.log('El servidor está funcionando en el puerto http://localhost:' + PORT)
 })
-
-
-/*     UserRepository.addContact(1,2) */
-
-
-
-/* UserRepository.deleteContact(3,1) */
-
-
-/* const { content, author_id, receiver_id } = data */
-
-/* MessageRepository.addMessage({
-    content: 'una maravilla!',
-    author_id: 1,
-    receiver_id: 3
-}) */
-
-/*     console.log(await MessageRepository.getMessages(1,3)) */
-
-/* console.log(await UserRepository.getContacts(5)) */
-
-/* const NewUser = {
-    name: 'guest',
-    number: '2213989494',
-    email: 'guest@test.com',
-    password: 'guest123'
-}
-
-UserRepository.createUser(NewUser) */
-
-/* console.log(await UserRepository.getAllUsers()) */
