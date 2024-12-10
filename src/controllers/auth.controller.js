@@ -159,7 +159,7 @@ export const forgotPasswordController = async (req, res, next) => {
             }
         )
 
-        emailTransporter.sendMail({
+        await emailTransporter.sendMail({
             to: email,
             subject: '¿Olvidaste tu contraseña?',
             html: `Si usted realizó una solicitud de reestablecimiento de contraseña, continúe el proceso haciendo click en el siguiente link: <a href="https://pwi-trabajo-final-front-end-desplegado.vercel.app/reset-password/${accessToken}">Reestablecer password</a>`
