@@ -1,6 +1,6 @@
 
 const allowed_origins = [
-    'https://pwi-trabajo-final-front-end-desplegado.vercel.app'
+    'https://pwi-trabajo-final-front-end-desplegado-git-main-rammas-projects.vercel.app'
 ]
 
 export const customCorsMiddleware = ((req, res, next) => {
