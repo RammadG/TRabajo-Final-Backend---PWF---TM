@@ -6,5 +6,5 @@ Las features del Back-End son:
 5. Protección de controladores sensibles con JWT.
 6. MySQL para la base de datos.
 
-Si bien fue un gran desafío desarrollar este proyecto logré mejorar muchísimo mi entendimiento de javascript, express, mysql, POO y de la lógica de programación y resolución de problemas.  
-Definitivamente, comparando con el momento que empecé, mejoré muchísimo como programador.
+Si bien fue un gran desafío desarrollar este proyecto ya que toda la cursada de back la hice de manera asincronica, siento que logré mejorar muchísimo mi entendimiento de javascript, express, mysql, POO y de la lógica de programación y resolución de problemas.  
+Definitivamente, comparando con el momento que empecé, mejoré muchísimo como programadora.
