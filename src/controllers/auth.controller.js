@@ -50,7 +50,7 @@ export const registerController = async (req, res, next) => {
 
         await UserRepository.createUser(user_data)
 
-        emailTransporter.sendMail({
+        await emailTransporter.sendMail({
             to: user_data.email,
             subject: 'Confirmación de registro',
             html: '¡Su usuario ha sido creado con éxito!'
