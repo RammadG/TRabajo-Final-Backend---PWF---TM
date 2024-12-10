@@ -7,12 +7,7 @@ const messageRouter = express.Router()
 
 
 messageRouter.get('/:receiver_id', filterAccessTokenMiddleware, getMessagesController)
-
 messageRouter.post('/:receiver_id', filterAccessTokenMiddleware, addMessageController)
-
-
-
-
 
 
 export default messageRouter

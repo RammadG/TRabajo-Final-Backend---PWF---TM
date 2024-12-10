@@ -11,9 +11,4 @@ contactRouter.delete('/:contactId', filterAccessTokenMiddleware, deleteContactBy
 contactRouter.get('/get/users', filterAccessTokenMiddleware, getAllUsersController)
 
 
-
-
-
-
-
 export default contactRouter

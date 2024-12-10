@@ -61,6 +61,13 @@ class UserRepository {
 
     }
 
+    static async changeUserPassword(email, password){
+
+        const passwordHashed = await bcrypt.hash(password, 10)
+
+        await pool.execute('UPDATE Users SET password = ? WHERE email = ?', [passwordHashed, email])
+    }
+
 }
 
 export default UserRepository

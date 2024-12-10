@@ -8,11 +8,12 @@ import MessageRepository from './repository/message.repository.js'
 import cors from 'cors'
 import contactRouter from './routes/contactRouter.js'
 import messageRouter from './routes/messageRouter.js'
+import { customCorsMiddleware } from './middlewares/corsMiddleware.js'
 
 const app = express()
 const PORT = 8000
 
-app.use(cors({origin : 'https://pwi-trabajo-final-front-end-desplegado.vercel.app'})) 
+app.use(customCorsMiddleware) 
 
 app.use(express.json())
 

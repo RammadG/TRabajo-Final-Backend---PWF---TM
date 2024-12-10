@@ -72,7 +72,10 @@ export const registerController = async (req, res, next) => {
 
     }
     catch (err) {
-        console.log(err)
+        return res.json({
+            error: err.message
+        }
+        )
     }
 }
 
@@ -131,4 +134,84 @@ export const loginController = async (req, res, next) => {
         return res.json({
             error: err.message
         })
-}}
+    }
+}
+
+export const forgotPasswordController = async (req, res, next) => {
+    try {
+
+        const { email } = req.body
+
+        const userGotten = await UserRepository.getUser(email)
+
+        if (!userGotten) {
+            return res.json({
+                error: 'El usuario no existe.'
+            })
+        }
+
+        const accessToken = jwt.sign({
+            email: userGotten.email
+        },
+            ENVIROMENT.SECRET_KEY,
+            {
+                expiresIn: '1d'
+            }
+        )
+
+        emailTransporter.sendMail({
+            to: email,
+            subject: '¿Olvidaste tu contraseña?',
+            html: `Si usted realizó una solicitud de reestablecimiento de contraseña, continúe el proceso haciendo click en el siguiente link: <a href="https://pwi-trabajo-final-front-end-desplegado.vercel.app/reset-password/${accessToken}">Reestablecer password</a>`
+        })
+
+        const response = new ResponseBuilder()
+            .setCode('EMAIL_RECOVER_PASSWORD_SENT')
+            .setMessage('Email de recuperación enviado con éxito.')
+            .setOk(true)
+            .setStatus(200)
+            .build()
+
+        return res.json(response)
+
+    }
+    catch (err) {
+        return res.json({
+            error: 'Error de servidor'
+        })
+    }
+
+
+
+}
+
+export const resetPasswordController = async (req, res, next) => {
+    try {
+
+        const { accessToken } = req.params
+
+        const { password } = req.body
+
+        const email = jwt.verify(accessToken, ENVIROMENT.SECRET_KEY).email
+
+        await UserRepository.changeUserPassword(email, password)
+
+        const response = new ResponseBuilder()
+            .setCode('PASSWORD_RESET_SUCCESS')
+            .setMessage('Password reseteado con éxito')
+            .setOk(true)
+            .setStatus(200)
+            .build()
+
+        return res.json(response)
+    }
+    catch (err) {
+        return res.json({
+            error: err.message
+        }
+        )
+    }
+
+
+
+}

@@ -13,7 +13,7 @@ export const getMessagesController = async (req, res, next) => {
 
         const mensajes = await MessageRepository.getMessages(author_id, receiver_id)
 
-        const mensajesFormateados = mensajes.forEach((mensaje, index) => {
+        mensajes.forEach((mensaje, index) => {
             let hora = mensaje.created_at.getHours().toString().padStart(2, '0')
             let minutos = mensaje.created_at.getMinutes().toString().padStart(2, '0')
 
@@ -28,7 +28,7 @@ export const getMessagesController = async (req, res, next) => {
             .setOk(true)
             .setStatus(200)
             .setData({
-                mensajes: mensajesFormateados,
+                mensajes: mensajes,
                 nombreContacto: contacto.name
             })
             .build()
@@ -36,38 +36,40 @@ export const getMessagesController = async (req, res, next) => {
         return res.json(response)
 
     } catch (err) {
-        console.log(err)
+        res.json({
+            error: err.message
+        })
     }
 
 }
 
 export const addMessageController = async (req, res, next) => {
-    try{
+    try {
 
         const { receiver_id } = req.params
 
         const { content } = req.body
 
-        if(!content){
+        if (!content) {
             return res.send('No hay contenido')
         }
 
-        await MessageRepository.addMessage({content: content, receiver_id: receiver_id, author_id: req.userId})
+        await MessageRepository.addMessage({ content: content, receiver_id: receiver_id, author_id: req.userId })
 
         const response = new ResponseBuilder()
-        .setCode('MESSAGE_SEND_SUCCESS')
-        .setMessage('Mensaje enviado con éxito.')
-        .setOk(true)
-        .setStatus(200)
-        .setData({
-            mensaje: content
-        })
-        .build()
+            .setCode('MESSAGE_SEND_SUCCESS')
+            .setMessage('Mensaje enviado con éxito.')
+            .setOk(true)
+            .setStatus(200)
+            .setData({
+                mensaje: content
+            })
+            .build()
 
         res.json(response)
 
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 }
